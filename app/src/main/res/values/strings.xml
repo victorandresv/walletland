@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WalletLand</string>
+    <string name="in">Ingresos</string>
+    <string name="out">Egresos</string>
+</resources>
