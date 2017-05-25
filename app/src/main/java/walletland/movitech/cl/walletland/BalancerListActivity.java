@@ -10,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -46,6 +48,7 @@ public class BalancerListActivity extends AppCompatActivity {
 
         title = new EditText(this);
         title.setHint(getResources().getString(R.string.name));
+        title.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             title.setAllCaps(true);
         }
