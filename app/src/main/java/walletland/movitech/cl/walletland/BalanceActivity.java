@@ -14,6 +14,7 @@ public class BalanceActivity extends AppCompatActivity {
     Button buttonIn;
     Button buttonOut;
     Intent intentBalancerList;
+    TblRegisters Registers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +44,14 @@ public class BalanceActivity extends AppCompatActivity {
             }
         });
 
-        TblRegisters Registers = new TblRegisters(this);
+        Registers = new TblRegisters(this);
         textBalance.setText(String.valueOf(Registers.getSum("IN")-Registers.getSum("OUT")));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-
+            textBalance.setText(String.valueOf(Registers.getSum("IN")-Registers.getSum("OUT")));
         }
     }
 }
