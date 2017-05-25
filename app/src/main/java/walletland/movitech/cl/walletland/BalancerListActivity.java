@@ -91,11 +91,11 @@ public class BalancerListActivity extends AppCompatActivity {
                         Values.put(TblRegistersDefinition.Entry.OPTION, "OUT");
                     }
                     Database.insert(Values);
-                    loadList();
                     dialog.cancel();
 
                     Intent intent = new Intent();
                     setResult(1, intent);
+                    loadList();
                 }
             }
         });
@@ -106,9 +106,6 @@ public class BalancerListActivity extends AppCompatActivity {
         });
 
         loadList();
-        ListView List = (ListView) findViewById(R.id.ListView);
-        AdapterBalancer Adapter = new AdapterBalancer(this, Balance);
-        List.setAdapter(Adapter);
     }
 
     public void loadList(){
@@ -130,6 +127,9 @@ public class BalancerListActivity extends AppCompatActivity {
             }
         }
         cursor.close();
+        ListView List = (ListView) findViewById(R.id.ListView);
+        AdapterBalancer Adapter = new AdapterBalancer(this, Balance);
+        List.setAdapter(Adapter);
     }
 
     @Override
