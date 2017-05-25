@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 public class BalancerListActivity extends AppCompatActivity {
 
+    String option;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,14 @@ public class BalancerListActivity extends AppCompatActivity {
         }
 
         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+
+        option = getIntent().getStringExtra("option");
+
+        if(option.contains("in")){
+            getSupportActionBar().setSubtitle(getResources().getString(R.string.in));
+        } else {
+            getSupportActionBar().setSubtitle(getResources().getString(R.string.out));
+        }
     }
 
     @Override
@@ -37,7 +47,7 @@ public class BalancerListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addNew:
-
+                
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
