@@ -13,7 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class BalancerListActivity extends AppCompatActivity {
 
@@ -82,6 +85,12 @@ public class BalancerListActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+
+        ArrayList<ModelBalance> Balance = new ArrayList<ModelBalance>();
+
+        ListView List = (ListView) findViewById(R.id.ListView);
+        AdapterBalancer Adapter = new AdapterBalancer(this, Balance);
+        List.setAdapter(Adapter);
     }
 
     @Override
