@@ -1,18 +1,25 @@
 package walletland.movitech.cl.walletland;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class BalancerListActivity extends AppCompatActivity {
 
     String option;
+    AlertDialog.Builder form;
+    EditText title;
+    EditText quantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +34,45 @@ public class BalancerListActivity extends AppCompatActivity {
 
         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
 
+        title = new EditText(this);
+        title.setHint(getResources().getString(R.string.name));
+        quantity = new EditText(this);
+        quantity.setHint(getResources().getString(R.string.quantity));
+
         option = getIntent().getStringExtra("option");
+        form = new AlertDialog.Builder(this);
 
         if(option.contains("in")){
             getSupportActionBar().setSubtitle(getResources().getString(R.string.in));
+            form.setTitle(getResources().getString(R.string.in));
         } else {
             getSupportActionBar().setSubtitle(getResources().getString(R.string.out));
+            form.setTitle(getResources().getString(R.string.in));
         }
+
+        form.setMessage(getResources().getString(R.string.add_reg_message));
+
+        LinearLayout layout = new LinearLayout(getApplicationContext());
+        layout.setPadding(20, 0, 20, 0);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(title);
+        layout.addView(quantity);
+        form.setView(layout);
+
+        form.setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if(option.contains("in")){
+
+                } else {
+
+                }
+            }
+        });
+        form.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
     }
 
     @Override
@@ -47,7 +86,7 @@ public class BalancerListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addNew:
-                
+                form.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

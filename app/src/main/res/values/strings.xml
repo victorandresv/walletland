@@ -2,4 +2,9 @@
     <string name="app_name">WalletLand</string>
     <string name="in">Ingresos</string>
     <string name="out">Egresos</string>
+    <string name="add_reg_message">Agregar un registro</string>
+    <string name="add">Agregar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="name">Nombre</string>
+    <string name="quantity">Cantidad</string>
 </resources>
