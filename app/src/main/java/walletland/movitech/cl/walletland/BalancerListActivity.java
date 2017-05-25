@@ -96,7 +96,7 @@ public class BalancerListActivity extends AppCompatActivity {
 
                     Intent intent = new Intent();
                     setResult(1, intent);
-                    loadList();
+                    loadList(true);
                 }
             }
         });
@@ -106,10 +106,14 @@ public class BalancerListActivity extends AppCompatActivity {
             }
         });
 
-        loadList();
+        loadList(false);
     }
 
-    public void loadList(){
+    /**
+     * Carga de listado, si agrega true es inserción, sino solo es carga
+     * @param added
+     */
+    public void loadList(boolean added){
         Balance = new ArrayList<ModelBalance>();
         Cursor cursor;
         if (option.contains("in")) {
@@ -127,6 +131,11 @@ public class BalancerListActivity extends AppCompatActivity {
                 ));
             }
         }
+
+        if(cursor.getCount() > 10 && added){
+            //Todo programar nueva tabla de info que contiene informacion de compartidos, de esta forma si ha compartido puede usar libremente, de lo contrario mostrara aviso persistente cada vez que inserte un registro.
+        }
+
         cursor.close();
         ListView List = (ListView) findViewById(R.id.ListView);
         AdapterBalancer Adapter = new AdapterBalancer(this, Balance);
