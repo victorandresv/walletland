@@ -1,6 +1,7 @@
 package walletland.movitech.cl.walletland;
 
 import android.content.Context;
+import android.icu.text.NumberFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -56,8 +58,10 @@ public class AdapterBalancer extends BaseAdapter {
         Button delete = (Button) ViewInflater.findViewById(R.id.buttonDelete);
 
         try {
+            Log.d("QUANTITY", ":"+Data.get(position).getQuantity());
             name.setText(Data.get(position).getName());
-            quantity.setText(Data.get(position).getQuantity());
+            String balanceValue = String.format ("%,d", Data.get(position).getQuantity());
+            quantity.setText("$"+balanceValue);
             datetime.setText(Data.get(position).getDatetime());
         } catch (Exception e){
 

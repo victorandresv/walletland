@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class BalanceActivity extends AppCompatActivity {
 
     TextView textBalance;
@@ -45,13 +47,16 @@ public class BalanceActivity extends AppCompatActivity {
         });
 
         Registers = new TblRegisters(this);
-        textBalance.setText(String.valueOf(Registers.getSum("IN")-Registers.getSum("OUT")));
+        String balanceValue = String.format ("%,d", (Registers.getSum("IN")-Registers.getSum("OUT")));
+        textBalance.setText("$"+balanceValue);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-            textBalance.setText(String.valueOf(Registers.getSum("IN")-Registers.getSum("OUT")));
+            String balanceValue = String.format ("%,d", (Registers.getSum("IN")-Registers.getSum("OUT")));
+            textBalance.setText("$"+balanceValue);
         }
     }
 }

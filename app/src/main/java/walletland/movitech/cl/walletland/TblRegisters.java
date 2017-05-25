@@ -65,7 +65,7 @@ public class TblRegisters extends SQLiteOpenHelper {
                 TblRegistersDefinition.Entry.PLACE
         };
         String where = TblRegistersDefinition.Entry.OPTION + " = ?";
-        Cursor cursor = db.query(TblRegistersDefinition.Entry.TABLE_NAME, select, where, new String[]{option}, null, null, null);
+        Cursor cursor = db.query(TblRegistersDefinition.Entry.TABLE_NAME, select, where, new String[]{option}, null, null, TblRegistersDefinition.Entry.DATETIME+" DESC");
         return cursor;
     }
 

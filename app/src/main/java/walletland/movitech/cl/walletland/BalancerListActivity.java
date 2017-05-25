@@ -102,7 +102,6 @@ public class BalancerListActivity extends AppCompatActivity {
             }
         });
 
-        Balance = new ArrayList<ModelBalance>();
         loadList();
         ListView List = (ListView) findViewById(R.id.ListView);
         AdapterBalancer Adapter = new AdapterBalancer(this, Balance);
@@ -110,6 +109,7 @@ public class BalancerListActivity extends AppCompatActivity {
     }
 
     public void loadList(){
+        Balance = new ArrayList<ModelBalance>();
         Cursor cursor;
         if (option.contains("in")) {
             cursor = Database.getAll("IN");
