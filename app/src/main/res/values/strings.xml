@@ -4,7 +4,10 @@
     <string name="out">Egresos</string>
     <string name="add_reg_message">Agregar un registro</string>
     <string name="add">Agregar</string>
+    <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
     <string name="name">Nombre</string>
     <string name="quantity">Cantidad</string>
+    <string name="delete_title">Eliminar registros</string>
+    <string name="delete_text">¿Deseas elminar este registro?</string>
 </resources>

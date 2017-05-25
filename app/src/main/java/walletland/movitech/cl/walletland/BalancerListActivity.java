@@ -1,5 +1,6 @@
 package walletland.movitech.cl.walletland;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;

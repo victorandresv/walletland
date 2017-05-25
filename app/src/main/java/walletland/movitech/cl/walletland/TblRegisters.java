@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class TblRegisters extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
@@ -38,6 +39,12 @@ public class TblRegisters extends SQLiteOpenHelper {
         Cursor cursor = getAll();
         cursor.moveToLast();
         return cursor.getInt(cursor.getColumnIndexOrThrow(TblRegistersDefinition.Entry.ID));
+    }
+
+    public void delete(Integer ID){
+        SQLiteDatabase db = getReadableDatabase();
+        String where = TblRegistersDefinition.Entry.ID + " = ?";
+        db.delete(TblRegistersDefinition.Entry.TABLE_NAME, where, new String[]{String.valueOf(ID)});
     }
 
     public Cursor getAll(){

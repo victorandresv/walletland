@@ -1,8 +1,9 @@
 package walletland.movitech.cl.walletland;
 
+import android.app.Activity;
 import android.content.Context;
-import android.icu.text.NumberFormat;
-import android.util.Log;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.sql.Date;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -66,6 +66,28 @@ public class AdapterBalancer extends BaseAdapter {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             String strDate = formatter.format(new Date(Long.parseLong(Data.get(position).getDatetime())*1000));
             datetime.setText(strDate);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    AlertDialog.Builder confirm = new AlertDialog.Builder(v.getContext());
+                    confirm.setTitle(v.getResources().getString(R.string.delete_title));
+                    confirm.setMessage(v.getResources().getString(R.string.delete_text));
+                    confirm.setPositiveButton(v.getResources().getString(R.string.accept), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            TblRegisters Register = new TblRegisters(v.getContext());
+                            Register.delete(Data.get(position).getId());
+                            ((BalancerListActivity)context).loadList();
+                        }
+                    });
+                    confirm.setNegativeButton(v.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    });
+                    confirm.create();
+                    confirm.show();
+                }
+            });
         } catch (Exception e){
 
         }
