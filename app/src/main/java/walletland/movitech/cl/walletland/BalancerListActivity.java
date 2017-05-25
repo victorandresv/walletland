@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,8 +37,12 @@ public class BalancerListActivity extends AppCompatActivity {
 
         title = new EditText(this);
         title.setHint(getResources().getString(R.string.name));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            title.setAllCaps(true);
+        }
         quantity = new EditText(this);
         quantity.setHint(getResources().getString(R.string.quantity));
+        quantity.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         option = getIntent().getStringExtra("option");
         form = new AlertDialog.Builder(this);
@@ -47,7 +52,7 @@ public class BalancerListActivity extends AppCompatActivity {
             form.setTitle(getResources().getString(R.string.in));
         } else {
             getSupportActionBar().setSubtitle(getResources().getString(R.string.out));
-            form.setTitle(getResources().getString(R.string.in));
+            form.setTitle(getResources().getString(R.string.out));
         }
 
         form.setMessage(getResources().getString(R.string.add_reg_message));
