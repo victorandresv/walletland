@@ -1,22 +1,24 @@
 package walletland.movitech.cl.walletland;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BalancerListActivity extends AppCompatActivity {
 
@@ -24,6 +26,8 @@ public class BalancerListActivity extends AppCompatActivity {
     AlertDialog.Builder form;
     EditText title;
     EditText quantity;
+    TblRegisters Database;
+    ArrayList<ModelBalance> Balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class BalancerListActivity extends AppCompatActivity {
         }
 
         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+
+        Database = new TblRegisters(this);
 
         title = new EditText(this);
         title.setHint(getResources().getString(R.string.name));
@@ -72,11 +78,21 @@ public class BalancerListActivity extends AppCompatActivity {
                 String nameValue = title.getText().toString();
                 String quantityValue = quantity.getText().toString();
                 if(!nameValue.isEmpty() && !quantityValue.isEmpty()){
+                    ContentValues Values = new ContentValues();
+                    Values.put(TblRegistersDefinition.Entry.NAME, nameValue);
+                    Values.put(TblRegistersDefinition.Entry.QUANTITY, quantityValue);
+                    Values.put(TblRegistersDefinition.Entry.DATETIME, String.valueOf(new Date().getTime() / 1000));
                     if (option.contains("in")) {
-
+                        Values.put(TblRegistersDefinition.Entry.OPTION, "IN");
                     } else {
-
+                        Values.put(TblRegistersDefinition.Entry.OPTION, "OUT");
                     }
+                    Database.insert(Values);
+                    loadList();
+                    dialog.cancel();
+
+                    Intent intent = new Intent();
+                    setResult(1, intent);
                 }
             }
         });
@@ -86,11 +102,31 @@ public class BalancerListActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<ModelBalance> Balance = new ArrayList<ModelBalance>();
-
+        Balance = new ArrayList<ModelBalance>();
+        loadList();
         ListView List = (ListView) findViewById(R.id.ListView);
         AdapterBalancer Adapter = new AdapterBalancer(this, Balance);
         List.setAdapter(Adapter);
+    }
+
+    public void loadList(){
+        Cursor cursor;
+        if (option.contains("in")) {
+            cursor = Database.getAll("IN");
+        } else {
+            cursor = Database.getAll("OUT");
+        }
+        if(cursor.getCount() > 0){
+            while (cursor.moveToNext()){
+                Balance.add(new ModelBalance(
+                        cursor.getInt(cursor.getColumnIndexOrThrow(TblRegistersDefinition.Entry.ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(TblRegistersDefinition.Entry.NAME)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(TblRegistersDefinition.Entry.QUANTITY)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(TblRegistersDefinition.Entry.DATETIME))
+                ));
+            }
+        }
+        cursor.close();
     }
 
     @Override

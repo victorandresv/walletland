@@ -1,6 +1,7 @@
 package walletland.movitech.cl.walletland;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,19 +45,23 @@ public class AdapterBalancer extends BaseAdapter {
         View ViewInflater;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            ViewInflater = inflater.inflate(R.layout.activity_balancer_list, null);
+            ViewInflater = inflater.inflate(R.layout.listview_item, null);
         } else {
             ViewInflater = convertView;
         }
 
         TextView name = (TextView) ViewInflater.findViewById(R.id.name);
-        TextView quantity = (TextView) ViewInflater.findViewById(R.id.quantity);
-        TextView datetime = (TextView) ViewInflater.findViewById(R.id.datetime);
+        TextView quantity = (TextView) ViewInflater.findViewById(R.id.textQuantity);
+        TextView datetime = (TextView) ViewInflater.findViewById(R.id.textDatetime);
         Button delete = (Button) ViewInflater.findViewById(R.id.buttonDelete);
 
-        name.setText(Data.get(position).getName());
-        quantity.setText(Data.get(position).getQuantity());
-        datetime.setText(Data.get(position).getDatetime());
+        try {
+            name.setText(Data.get(position).getName());
+            quantity.setText(Data.get(position).getQuantity());
+            datetime.setText(Data.get(position).getDatetime());
+        } catch (Exception e){
+
+        }
 
         return ViewInflater;
     }

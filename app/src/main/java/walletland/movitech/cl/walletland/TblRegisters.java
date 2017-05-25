@@ -54,9 +54,24 @@ public class TblRegisters extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getAll(String option){
+        SQLiteDatabase db = getReadableDatabase();
+        String[] select = {
+                TblRegistersDefinition.Entry.ID,
+                TblRegistersDefinition.Entry.NAME,
+                TblRegistersDefinition.Entry.QUANTITY,
+                TblRegistersDefinition.Entry.OPTION,
+                TblRegistersDefinition.Entry.DATETIME,
+                TblRegistersDefinition.Entry.PLACE
+        };
+        String where = TblRegistersDefinition.Entry.OPTION + " = ?";
+        Cursor cursor = db.query(TblRegistersDefinition.Entry.TABLE_NAME, select, where, new String[]{option}, null, null, null);
+        return cursor;
+    }
+
     public Integer getSum(String option){
         SQLiteDatabase db = getReadableDatabase();
-        String q = "SELECT SUM("+TblRegistersDefinition.Entry.ID+") AS NUMBER FROM "+TblRegistersDefinition.Entry.TABLE_NAME;
+        String q = "SELECT SUM("+TblRegistersDefinition.Entry.QUANTITY+") AS NUMBER FROM "+TblRegistersDefinition.Entry.TABLE_NAME;
         q += " WHERE "+TblRegistersDefinition.Entry.OPTION+" = '"+ option +"'";
         Cursor cursor = db.rawQuery(q, null);
         Integer out = 0;
