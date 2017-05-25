@@ -66,10 +66,14 @@ public class BalancerListActivity extends AppCompatActivity {
 
         form.setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                if(option.contains("in")){
+                String nameValue = title.getText().toString();
+                String quantityValue = quantity.getText().toString();
+                if(!nameValue.isEmpty() && !quantityValue.isEmpty()){
+                    if (option.contains("in")) {
 
-                } else {
+                    } else {
 
+                    }
                 }
             }
         });

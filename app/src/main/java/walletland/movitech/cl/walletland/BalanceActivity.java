@@ -42,6 +42,9 @@ public class BalanceActivity extends AppCompatActivity {
                 startActivityForResult(intentBalancerList, 1);
             }
         });
+
+        TblRegisters Registers = new TblRegisters(this);
+        textBalance.setText(String.valueOf(Registers.getSum("IN")-Registers.getSum("OUT")));
     }
 
     @Override
