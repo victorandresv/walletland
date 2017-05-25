@@ -10,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.sql.Date;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -58,11 +60,12 @@ public class AdapterBalancer extends BaseAdapter {
         Button delete = (Button) ViewInflater.findViewById(R.id.buttonDelete);
 
         try {
-            Log.d("QUANTITY", ":"+Data.get(position).getQuantity());
             name.setText(Data.get(position).getName());
             String balanceValue = String.format ("%,d", Data.get(position).getQuantity());
             quantity.setText("$"+balanceValue);
-            datetime.setText(Data.get(position).getDatetime());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            String strDate = formatter.format(new Date(Long.parseLong(Data.get(position).getDatetime())*1000));
+            datetime.setText(strDate);
         } catch (Exception e){
 
         }
